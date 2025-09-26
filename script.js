@@ -1,18 +1,21 @@
-// Font configurations (same as before)
+// Font configurations with library information
 const fonts = [
     {
         family: 'System Default',
+        library: 'local',
         variants: [{ name: 'Regular', value: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', isVariable: false }]
     },
     // Local fonts
     {
         family: 'Newsreader Variable',
+        library: 'local',
         variants: [
             { name: 'Variable (200-800)', value: 'Newsreader', isVariable: true, minWeight: 200, maxWeight: 800 }
         ]
     },
     {
         family: 'Newsreader 9pt',
+        library: 'local',
         variants: [
             { name: 'ExtraLight', value: 'Newsreader 9pt ExtraLight' },
             { name: 'Light', value: 'Newsreader 9pt Light' },
@@ -24,18 +27,22 @@ const fonts = [
     },
     {
         family: 'Newsreader 24pt',
+        library: 'local',
         variants: [{ name: 'Regular', value: 'Newsreader 24pt Regular' }]
     },
     {
         family: 'Newsreader 36pt',
+        library: 'local',
         variants: [{ name: 'Regular', value: 'Newsreader 36pt Regular' }]
     },
     {
         family: 'Newsreader 60pt',
+        library: 'local',
         variants: [{ name: 'Regular', value: 'Newsreader 60pt Regular' }]
     },
     {
         family: 'Instrument Serif',
+        library: 'local',
         variants: [
             { name: 'Regular', value: 'Instrument Serif Regular' },
             { name: 'Italic', value: 'Instrument Serif Italic' }
@@ -43,12 +50,14 @@ const fonts = [
     },
     {
         family: 'Inter Variable',
+        library: 'local',
         variants: [
             { name: 'Variable (100-900)', value: 'Inter', isVariable: true, minWeight: 100, maxWeight: 900 }
         ]
     },
     {
         family: 'Inter 18pt',
+        library: 'local',
         variants: [
             { name: 'Thin', value: 'Inter 18pt Thin' },
             { name: 'ExtraLight', value: 'Inter 18pt ExtraLight' },
@@ -63,15 +72,18 @@ const fonts = [
     },
     {
         family: 'Inter 24pt',
+        library: 'local',
         variants: [{ name: 'Regular', value: 'Inter 24pt Regular' }]
     },
     {
         family: 'Inter 28pt',
+        library: 'local',
         variants: [{ name: 'Regular', value: 'Inter 28pt Regular' }]
     },
     // Google Fonts - Sans Serif
     {
         family: 'Roboto',
+        library: 'google',
         variants: [
             { name: 'Thin (100)', value: "'Roboto', sans-serif", weight: 100 },
             { name: 'Light (300)', value: "'Roboto', sans-serif", weight: 300 },
@@ -83,12 +95,14 @@ const fonts = [
     },
     {
         family: 'Open Sans',
+        library: 'google',
         variants: [
             { name: 'Variable (300-800)', value: "'Open Sans', sans-serif", isVariable: true, minWeight: 300, maxWeight: 800 }
         ]
     },
     {
         family: 'Lato',
+        library: 'google',
         variants: [
             { name: 'Thin (100)', value: "'Lato', sans-serif", weight: 100 },
             { name: 'Light (300)', value: "'Lato', sans-serif", weight: 300 },
@@ -99,12 +113,14 @@ const fonts = [
     },
     {
         family: 'Montserrat',
+        library: 'google',
         variants: [
             { name: 'Variable (100-900)', value: "'Montserrat', sans-serif", isVariable: true, minWeight: 100, maxWeight: 900 }
         ]
     },
     {
         family: 'Poppins',
+        library: 'google',
         variants: [
             { name: 'Thin (100)', value: "'Poppins', sans-serif", weight: 100 },
             { name: 'ExtraLight (200)', value: "'Poppins', sans-serif", weight: 200 },
@@ -119,30 +135,35 @@ const fonts = [
     },
     {
         family: 'Source Sans 3',
+        library: 'google',
         variants: [
             { name: 'Variable (200-900)', value: "'Source Sans 3', sans-serif", isVariable: true, minWeight: 200, maxWeight: 900 }
         ]
     },
     {
         family: 'Raleway',
+        library: 'google',
         variants: [
             { name: 'Variable (100-900)', value: "'Raleway', sans-serif", isVariable: true, minWeight: 100, maxWeight: 900 }
         ]
     },
     {
         family: 'Oswald',
+        library: 'google',
         variants: [
             { name: 'Variable (200-700)', value: "'Oswald', sans-serif", isVariable: true, minWeight: 200, maxWeight: 700 }
         ]
     },
     {
         family: 'Nunito',
+        library: 'google',
         variants: [
             { name: 'Variable (200-1000)', value: "'Nunito', sans-serif", isVariable: true, minWeight: 200, maxWeight: 1000 }
         ]
     },
     {
         family: 'Ubuntu',
+        library: 'google',
         variants: [
             { name: 'Light (300)', value: "'Ubuntu', sans-serif", weight: 300 },
             { name: 'Regular (400)', value: "'Ubuntu', sans-serif", weight: 400 },
@@ -152,12 +173,14 @@ const fonts = [
     },
     {
         family: 'Work Sans',
+        library: 'google',
         variants: [
             { name: 'Variable (100-900)', value: "'Work Sans', sans-serif", isVariable: true, minWeight: 100, maxWeight: 900 }
         ]
     },
     {
         family: 'DM Sans',
+        library: 'google',
         variants: [
             { name: 'Variable (100-1000)', value: "'DM Sans', sans-serif", isVariable: true, minWeight: 100, maxWeight: 1000 }
         ]
@@ -165,12 +188,14 @@ const fonts = [
     // Google Fonts - Serif
     {
         family: 'Playfair Display',
+        library: 'google',
         variants: [
             { name: 'Variable (400-900)', value: "'Playfair Display', serif", isVariable: true, minWeight: 400, maxWeight: 900 }
         ]
     },
     {
         family: 'Merriweather',
+        library: 'google',
         variants: [
             { name: 'Light (300)', value: "'Merriweather', serif", weight: 300 },
             { name: 'Regular (400)', value: "'Merriweather', serif", weight: 400 },
@@ -180,6 +205,7 @@ const fonts = [
     },
     {
         family: 'Crimson Text',
+        library: 'google',
         variants: [
             { name: 'Regular (400)', value: "'Crimson Text', serif", weight: 400 },
             { name: 'SemiBold (600)', value: "'Crimson Text', serif", weight: 600 },
@@ -188,18 +214,21 @@ const fonts = [
     },
     {
         family: 'Lora',
+        library: 'google',
         variants: [
             { name: 'Variable (400-700)', value: "'Lora', serif", isVariable: true, minWeight: 400, maxWeight: 700 }
         ]
     },
     {
         family: 'Source Serif 4',
+        library: 'google',
         variants: [
             { name: 'Variable (200-900)', value: "'Source Serif 4', serif", isVariable: true, minWeight: 200, maxWeight: 900 }
         ]
     },
     {
         family: 'Libre Baskerville',
+        library: 'google',
         variants: [
             { name: 'Regular (400)', value: "'Libre Baskerville', serif", weight: 400 },
             { name: 'Bold (700)', value: "'Libre Baskerville', serif", weight: 700 }
@@ -207,12 +236,14 @@ const fonts = [
     },
     {
         family: 'EB Garamond',
+        library: 'google',
         variants: [
             { name: 'Variable (400-800)', value: "'EB Garamond', serif", isVariable: true, minWeight: 400, maxWeight: 800 }
         ]
     },
     {
         family: 'Cormorant Garamond',
+        library: 'google',
         variants: [
             { name: 'Light (300)', value: "'Cormorant Garamond', serif", weight: 300 },
             { name: 'Regular (400)', value: "'Cormorant Garamond', serif", weight: 400 },
@@ -222,6 +253,234 @@ const fonts = [
         ]
     }
 ];
+
+// Font Library fonts (to be loaded dynamically)
+let fontLibraryFonts = [];
+
+// Currently selected library
+let selectedLibrary = 'all';
+
+// Load fonts from Font Library.org
+async function loadFontLibraryFonts() {
+    try {
+        // Popular open-source fonts from Font Library that work well
+        const fontLibraryData = [
+            {
+                family: 'Jost',
+                url: 'https://cdn.jsdelivr.net/fontsource/fonts/jost@latest/latin-400-normal.woff2',
+                variants: [
+                    { name: 'Regular (400)', value: "'Jost', sans-serif", weight: 400 }
+                ]
+            },
+            {
+                family: 'Manrope',
+                url: 'https://cdn.jsdelivr.net/fontsource/fonts/manrope@latest/latin-400-normal.woff2',
+                variants: [
+                    { name: 'Regular (400)', value: "'Manrope', sans-serif", weight: 400 }
+                ]
+            },
+            {
+                family: 'Urbanist',
+                url: 'https://cdn.jsdelivr.net/fontsource/fonts/urbanist@latest/latin-400-normal.woff2',
+                variants: [
+                    { name: 'Regular (400)', value: "'Urbanist', sans-serif", weight: 400 }
+                ]
+            },
+            {
+                family: 'Epilogue',
+                url: 'https://cdn.jsdelivr.net/fontsource/fonts/epilogue@latest/latin-400-normal.woff2',
+                variants: [
+                    { name: 'Regular (400)', value: "'Epilogue', sans-serif", weight: 400 }
+                ]
+            },
+            {
+                family: 'Sora',
+                url: 'https://cdn.jsdelivr.net/fontsource/fonts/sora@latest/latin-400-normal.woff2',
+                variants: [
+                    { name: 'Regular (400)', value: "'Sora', sans-serif", weight: 400 }
+                ]
+            },
+            {
+                family: 'Outfit',
+                url: 'https://cdn.jsdelivr.net/fontsource/fonts/outfit@latest/latin-400-normal.woff2',
+                variants: [
+                    { name: 'Regular (400)', value: "'Outfit', sans-serif", weight: 400 }
+                ]
+            },
+            {
+                family: 'Public Sans',
+                url: 'https://cdn.jsdelivr.net/fontsource/fonts/public-sans@latest/latin-400-normal.woff2',
+                variants: [
+                    { name: 'Regular (400)', value: "'Public Sans', sans-serif", weight: 400 }
+                ]
+            },
+            {
+                family: 'Commissioner',
+                url: 'https://cdn.jsdelivr.net/fontsource/fonts/commissioner@latest/latin-400-normal.woff2',
+                variants: [
+                    { name: 'Regular (400)', value: "'Commissioner', sans-serif", weight: 400 }
+                ]
+            },
+            {
+                family: 'Chivo',
+                url: 'https://cdn.jsdelivr.net/fontsource/fonts/chivo@latest/latin-400-normal.woff2',
+                variants: [
+                    { name: 'Regular (400)', value: "'Chivo', sans-serif", weight: 400 }
+                ]
+            },
+            {
+                family: 'Red Hat Display',
+                url: 'https://cdn.jsdelivr.net/fontsource/fonts/red-hat-display@latest/latin-400-normal.woff2',
+                variants: [
+                    { name: 'Regular (400)', value: "'Red Hat Display', sans-serif", weight: 400 }
+                ]
+            },
+            {
+                family: 'Fira Sans',
+                url: 'https://cdn.jsdelivr.net/fontsource/fonts/fira-sans@latest/latin-400-normal.woff2',
+                variants: [
+                    { name: 'Regular (400)', value: "'Fira Sans', sans-serif", weight: 400 }
+                ]
+            },
+            {
+                family: 'Archivo',
+                url: 'https://cdn.jsdelivr.net/fontsource/fonts/archivo@latest/latin-400-normal.woff2',
+                variants: [
+                    { name: 'Regular (400)', value: "'Archivo', sans-serif", weight: 400 }
+                ]
+            },
+            {
+                family: 'Lexend',
+                url: 'https://cdn.jsdelivr.net/fontsource/fonts/lexend@latest/latin-400-normal.woff2',
+                variants: [
+                    { name: 'Regular (400)', value: "'Lexend', sans-serif", weight: 400 }
+                ]
+            },
+            {
+                family: 'Plus Jakarta Sans',
+                url: 'https://cdn.jsdelivr.net/fontsource/fonts/plus-jakarta-sans@latest/latin-400-normal.woff2',
+                variants: [
+                    { name: 'Regular (400)', value: "'Plus Jakarta Sans', sans-serif", weight: 400 }
+                ]
+            },
+            {
+                family: 'Figtree',
+                url: 'https://cdn.jsdelivr.net/fontsource/fonts/figtree@latest/latin-400-normal.woff2',
+                variants: [
+                    { name: 'Regular (400)', value: "'Figtree', sans-serif", weight: 400 }
+                ]
+            },
+            {
+                family: 'Onest',
+                url: 'https://cdn.jsdelivr.net/fontsource/fonts/onest@latest/latin-400-normal.woff2',
+                variants: [
+                    { name: 'Regular (400)', value: "'Onest', sans-serif", weight: 400 }
+                ]
+            },
+            {
+                family: 'Bricolage Grotesque',
+                url: 'https://cdn.jsdelivr.net/fontsource/fonts/bricolage-grotesque@latest/latin-400-normal.woff2',
+                variants: [
+                    { name: 'Regular (400)', value: "'Bricolage Grotesque', sans-serif", weight: 400 }
+                ]
+            },
+            {
+                family: 'Atkinson Hyperlegible',
+                url: 'https://cdn.jsdelivr.net/fontsource/fonts/atkinson-hyperlegible@latest/latin-400-normal.woff2',
+                variants: [
+                    { name: 'Regular (400)', value: "'Atkinson Hyperlegible', sans-serif", weight: 400 }
+                ]
+            },
+            {
+                family: 'Space Grotesk',
+                url: 'https://cdn.jsdelivr.net/fontsource/fonts/space-grotesk@latest/latin-400-normal.woff2',
+                variants: [
+                    { name: 'Regular (400)', value: "'Space Grotesk', sans-serif", weight: 400 }
+                ]
+            },
+            {
+                family: 'Geist Sans',
+                url: 'https://cdn.jsdelivr.net/fontsource/fonts/geist-sans@latest/latin-400-normal.woff2',
+                variants: [
+                    { name: 'Regular (400)', value: "'Geist Sans', sans-serif", weight: 400 }
+                ]
+            },
+            {
+                family: 'Albert Sans',
+                url: 'https://cdn.jsdelivr.net/fontsource/fonts/albert-sans@latest/latin-400-normal.woff2',
+                variants: [
+                    { name: 'Regular (400)', value: "'Albert Sans', sans-serif", weight: 400 }
+                ]
+            },
+            {
+                family: 'Satoshi',
+                url: 'https://cdn.jsdelivr.net/fontsource/fonts/satoshi@latest/latin-400-normal.woff2',
+                variants: [
+                    { name: 'Regular (400)', value: "'Satoshi', sans-serif", weight: 400 }
+                ]
+            },
+            {
+                family: 'General Sans',
+                url: 'https://cdn.jsdelivr.net/fontsource/fonts/general-sans@latest/latin-400-normal.woff2',
+                variants: [
+                    { name: 'Regular (400)', value: "'General Sans', sans-serif", weight: 400 }
+                ]
+            },
+            {
+                family: 'Cabinet Grotesk',
+                url: 'https://cdn.jsdelivr.net/fontsource/fonts/cabinet-grotesk@latest/latin-400-normal.woff2',
+                variants: [
+                    { name: 'Regular (400)', value: "'Cabinet Grotesk', sans-serif", weight: 400 }
+                ]
+            }
+        ];
+
+        // Create @font-face rules and format fonts
+        const style = document.createElement('style');
+        let css = '';
+
+        fontLibraryFonts = fontLibraryData.map(font => {
+            // Add @font-face rule
+            css += `
+                @font-face {
+                    font-family: '${font.family}';
+                    src: url('${font.url}') format('woff2');
+                    font-weight: 400;
+                    font-style: normal;
+                    font-display: swap;
+                }
+            `;
+
+            return {
+                family: font.family,
+                library: 'fontlibrary',
+                variants: font.variants
+            };
+        });
+
+        style.textContent = css;
+        document.head.appendChild(style);
+
+        // Update font selector if library is selected
+        if (selectedLibrary === 'all' || selectedLibrary === 'fontlibrary') {
+            updateFontSelector();
+        }
+
+    } catch (error) {
+        console.error('Error loading Font Library fonts:', error);
+    }
+}
+
+// Get filtered fonts based on selected library
+function getFilteredFonts() {
+    if (selectedLibrary === 'all') {
+        return [...fonts, ...fontLibraryFonts];
+    } else if (selectedLibrary === 'fontlibrary') {
+        return fontLibraryFonts;
+    } else {
+        return fonts.filter(font => font.library === selectedLibrary);
+    }
+}
 
 // Element labels for UI
 const elementLabels = {
@@ -394,6 +653,7 @@ And much more!`
 // DOM elements
 const elementSelector = document.getElementById('elementSelector');
 const currentElementLabel = document.getElementById('currentElementLabel');
+const librarySelector = document.getElementById('librarySelector');
 const fontSelector = document.getElementById('fontSelector');
 const fontVariant = document.getElementById('fontVariant');
 const fontSize = document.getElementById('fontSize');
@@ -449,12 +709,26 @@ let currentMarkdown = contentPresets.article;
 // Initialize font selector
 function initializeFonts() {
     fontSelector.innerHTML = '';
-    fonts.forEach((font, index) => {
+    const filteredFonts = getFilteredFonts();
+    filteredFonts.forEach((font, index) => {
         const option = document.createElement('option');
         option.value = index;
         option.textContent = font.family;
+        option.dataset.originalIndex = fonts.indexOf(font) >= 0 ? fonts.indexOf(font) :
+                                        (fonts.length + fontLibraryFonts.indexOf(font));
         fontSelector.appendChild(option);
     });
+
+    // If current font is not in filtered list, reset to first available
+    const currentFont = fonts[elementSettings[currentElement].fontIndex] ||
+                       fontLibraryFonts[elementSettings[currentElement].fontIndex - fonts.length];
+    if (currentFont && filteredFonts.indexOf(currentFont) === -1) {
+        // Current font not in filtered list, select first font
+        if (filteredFonts.length > 0) {
+            fontSelector.value = 0;
+            updateVariants();
+        }
+    }
 }
 
 // Load settings for current element
@@ -464,8 +738,20 @@ function loadElementSettings() {
     // Update label
     currentElementLabel.textContent = elementLabels[currentElement];
 
+    // Find the font in the filtered list
+    const font = settings.fontIndex < fonts.length ?
+                 fonts[settings.fontIndex] :
+                 fontLibraryFonts[settings.fontIndex - fonts.length];
+    const filteredFonts = getFilteredFonts();
+    const filteredIndex = filteredFonts.indexOf(font);
+
     // Update font selector
-    fontSelector.value = settings.fontIndex;
+    if (filteredIndex >= 0) {
+        fontSelector.value = filteredIndex;
+    } else {
+        // Font not in current filter, select first available
+        fontSelector.value = 0;
+    }
     updateVariants();
 
     // Update other controls
@@ -525,8 +811,11 @@ function loadElementSettings() {
 
 // Save current settings
 function saveCurrentSettings() {
+    const selectedFont = getFontFromFilteredIndex(fontSelector.value);
+    const originalIndex = getOriginalFontIndex(selectedFont);
+
     elementSettings[currentElement] = {
-        fontIndex: parseInt(fontSelector.value),
+        fontIndex: originalIndex,
         variantIndex: parseInt(fontVariant.value),
         fontSize: parseInt(fontSize.value),
         fontWeight: parseInt(fontWeight.value),
@@ -539,9 +828,24 @@ function saveCurrentSettings() {
     };
 }
 
+// Get actual font object from filtered index
+function getFontFromFilteredIndex(index) {
+    const filteredFonts = getFilteredFonts();
+    return filteredFonts[index];
+}
+
+// Get original index from font object
+function getOriginalFontIndex(font) {
+    const idx = fonts.indexOf(font);
+    if (idx >= 0) return idx;
+    const flIdx = fontLibraryFonts.indexOf(font);
+    if (flIdx >= 0) return fonts.length + flIdx;
+    return 0;
+}
+
 // Update font variants
 function updateVariants() {
-    const selectedFont = fonts[fontSelector.value];
+    const selectedFont = getFontFromFilteredIndex(fontSelector.value);
     fontVariant.innerHTML = '';
 
     selectedFont.variants.forEach((variant, index) => {
@@ -618,7 +922,9 @@ function applyAllStyles() {
 // Apply styles to specific element type
 function applyElementStyles(tag) {
     const settings = elementSettings[tag];
-    const font = fonts[settings.fontIndex];
+    const font = settings.fontIndex < fonts.length ?
+                 fonts[settings.fontIndex] :
+                 fontLibraryFonts[settings.fontIndex - fonts.length];
     const variant = font.variants[settings.variantIndex];
 
     let elements = preview.querySelectorAll(tag);
@@ -759,7 +1065,9 @@ function updateFontSummary() {
 
     elementOrder.forEach(tag => {
         const settings = elementSettings[tag];
-        const font = fonts[settings.fontIndex];
+        const font = settings.fontIndex < fonts.length ?
+                     fonts[settings.fontIndex] :
+                     fontLibraryFonts[settings.fontIndex - fonts.length];
         const variant = font.variants[settings.variantIndex];
 
         html += `
@@ -878,7 +1186,9 @@ function copySettingsAsCSS() {
     css += '/* Light Mode */\n';
     Object.keys(elementSettings).forEach(tag => {
         const settings = elementSettings[tag];
-        const font = fonts[settings.fontIndex];
+        const font = settings.fontIndex < fonts.length ?
+                     fonts[settings.fontIndex] :
+                     fontLibraryFonts[settings.fontIndex - fonts.length];
         const variant = font.variants[settings.variantIndex];
 
         css += `${tag} {\n`;
@@ -917,7 +1227,9 @@ function exportSettingsAsJSON() {
 
     Object.keys(elementSettings).forEach(tag => {
         const settings = elementSettings[tag];
-        const font = fonts[settings.fontIndex];
+        const font = settings.fontIndex < fonts.length ?
+                     fonts[settings.fontIndex] :
+                     fontLibraryFonts[settings.fontIndex - fonts.length];
         const variant = font.variants[settings.variantIndex];
 
         exportData.settings[tag] = {
@@ -1006,7 +1318,9 @@ function exitFullscreenMode() {
 function applyStylesToElement(container) {
     Object.keys(elementSettings).forEach(tag => {
         const settings = elementSettings[tag];
-        const font = fonts[settings.fontIndex];
+        const font = settings.fontIndex < fonts.length ?
+                     fonts[settings.fontIndex] :
+                     fontLibraryFonts[settings.fontIndex - fonts.length];
         const variant = font.variants[settings.variantIndex];
 
         let elements = container.querySelectorAll(tag);
@@ -1120,6 +1434,12 @@ function applyStylesToElement(container) {
 }
 
 // Event listeners
+librarySelector.addEventListener('change', () => {
+    selectedLibrary = librarySelector.value;
+    initializeFonts();
+    loadElementSettings();
+});
+
 elementSelector.addEventListener('change', () => {
     saveCurrentSettings();
     currentElement = elementSelector.value;
@@ -1324,6 +1644,7 @@ document.addEventListener('DOMContentLoaded', () => {
     updateSliderValues();
     renderMarkdown();
     updateFontSummary();
+    loadFontLibraryFonts(); // Load Font Library fonts
     applyContentBackground();
 });
 
