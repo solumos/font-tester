@@ -487,30 +487,37 @@ let contentBgSettings = {
 
 // Content presets
 const contentPresets = {
-    article: `# Breaking: Major Scientific Discovery
+    article: `# City Council Approves $2.8B Transit Expansion After Marathon Session
 
-Scientists have announced a groundbreaking discovery that promises to revolutionize our understanding of fundamental physics.
+##### By Jennifer Martinez and Robert Chen<br>Staff Writers | December 15, 2024
 
-## The Discovery
+**METRO CITY** — The City Council voted 7-2 early this morning to approve a controversial $2.8 billion transit expansion plan following a 14-hour public hearing that drew more than 200 speakers and lasted until 3:47 a.m.
 
-The research team, led by Dr. Sarah Chen, spent five years developing a new theoretical framework. Their findings demonstrate a previously unknown relationship between quantum mechanics and gravitational fields.
+### Heated Debate Over Funding
 
-### Key Findings
-- Quantum entanglement occurs at larger scales than previously thought
-- Gravitational effects can influence quantum states
-- New mathematical models predict observable phenomena
+The measure, which passed after months of negotiation, will extend the Metro Gold Line by 8.3 miles through the city's underserved eastern neighborhoods, adding six new stations and connecting approximately 175,000 residents to the regional transit network.
 
-## Implications
+Council President Maria Rodriguez cast the deciding vote after expressing reservations about the funding mechanism, which relies heavily on a 0.5% sales tax increase that critics say will disproportionately impact low-income residents.
 
-This breakthrough has immediate implications for:
+"This was not an easy decision," Rodriguez said following the vote. "But the long-term benefits to our community outweigh the short-term costs."
 
-1. **Quantum computing** - potentially solving decoherence problems
-2. **Communications** - ultra-secure quantum networks
-3. **Space exploration** - new propulsion theories
+### Opposition Remains Firm
 
-> "This changes everything we thought we knew about the quantum realm." — Dr. Chen
+Business groups and fiscal conservatives mounted fierce opposition to the plan, arguing the city cannot afford the expansion amid a projected $127 million budget shortfall next year.
 
-The research continues with \`international collaboration\` and peer review.`,
+> "We're mortgaging our future on a transit system that won't be completed for another decade," said James Wheeler, president of the Metro City Taxpayers Association.
+
+The project's supporters, including labor unions and environmental groups, countered that the expansion would create an estimated **4,500 construction jobs** and reduce carbon emissions by removing approximately 25,000 cars from daily commutes.
+
+### Timeline and Next Steps
+
+Construction is scheduled to begin in March 2025, pending federal approval of matching funds. The transit authority expects the first phase to open by 2029, though critics point to the agency's history of delays and cost overruns.
+
+Transit Director Angela Kim acknowledged past challenges but insisted the agency has implemented new project management protocols. "We've learned from our mistakes," Kim told reporters.
+
+The expansion will require the acquisition of 47 properties through eminent domain, a process that property rights advocates promise to challenge in court.
+
+*Contact the writers at j.martinez@newspaper.com and r.chen@newspaper.com*`,
 
     blog: `# Why I Switched to a Four-Day Work Week
 
@@ -647,7 +654,7 @@ const fullscreenContent = document.getElementById('fullscreenContent');
 const exitFullscreen = document.getElementById('exitFullscreen');
 
 let isEditorVisible = false;
-let currentMarkdown = contentPresets.article;
+let currentMarkdown = contentPresets.blog;
 
 // Initialize font selector
 function initializeFonts() {
@@ -1694,6 +1701,9 @@ document.addEventListener('DOMContentLoaded', () => {
     updateFontSummary();
     loadFontLibraryFonts(); // Load Font Library fonts
     applyContentBackground();
+
+    // Set dropdown to reflect default content
+    contentPreset.value = 'blog';
 });
 
 // Keyboard shortcuts
