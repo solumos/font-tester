@@ -842,6 +842,94 @@ function renderMarkdown() {
     const html = marked.parse(currentMarkdown);
     preview.innerHTML = html;
     applyAllStyles();
+    attachClickListeners();
+}
+
+// Attach click listeners to preview elements
+function attachClickListeners() {
+    // Define selectable elements
+    const selectableElements = 'h1, h2, h3, h4, p, blockquote, li, strong, em, code, pre';
+    const elements = preview.querySelectorAll(selectableElements);
+
+    elements.forEach(el => {
+        // Add cursor pointer to indicate clickability
+        el.style.cursor = 'pointer';
+
+        el.addEventListener('click', (e) => {
+            // Allow text selection with Shift key
+            if (e.shiftKey) {
+                return; // Normal text selection
+            }
+
+            e.stopPropagation();
+            e.preventDefault();
+
+            // Get the element type
+            let tagName = el.tagName.toLowerCase();
+
+            // Handle nested elements - if clicking on inline elements within a paragraph
+            if (tagName === 'strong' || tagName === 'em' || tagName === 'code') {
+                // Check if it's inside a larger block element
+                const parent = el.closest('p, li, blockquote, h1, h2, h3, h4');
+                if (parent && e.altKey) {
+                    // Alt+click selects the parent instead
+                    tagName = parent.tagName.toLowerCase();
+                }
+            }
+
+            // Check if this element type is in our element selector
+            const validElements = ['h1', 'h2', 'h3', 'h4', 'p', 'blockquote', 'li', 'strong', 'em', 'code', 'pre'];
+            if (!validElements.includes(tagName)) return;
+
+            // Save current settings before switching
+            saveCurrentSettings();
+
+            // Update dropdown and current element
+            currentElement = tagName;
+            elementSelector.value = tagName;
+
+            // Update the label
+            currentElementLabel.textContent = elementLabels[tagName];
+
+            // Load new element settings
+            loadElementSettings();
+
+            // Visual feedback
+            highlightSelectedElement(el);
+
+            // Update font summary
+            updateFontSummary();
+        });
+
+        // Add hover effect
+        el.addEventListener('mouseenter', (e) => {
+            if (!el.classList.contains('element-selected')) {
+                el.classList.add('element-hover');
+            }
+        });
+
+        el.addEventListener('mouseleave', (e) => {
+            el.classList.remove('element-hover');
+        });
+    });
+}
+
+// Highlight selected element with visual feedback
+function highlightSelectedElement(element) {
+    // Remove previous selection
+    const previouslySelected = preview.querySelectorAll('.element-selected');
+    previouslySelected.forEach(el => el.classList.remove('element-selected'));
+
+    // Add selection to clicked element and all similar elements
+    const tagName = element.tagName.toLowerCase();
+    const similarElements = preview.querySelectorAll(tagName);
+    similarElements.forEach(el => el.classList.add('element-selected'));
+
+    // Brief animation feedback on the clicked element
+    element.classList.add('element-clicked');
+    setTimeout(() => {
+        element.classList.remove('element-clicked');
+    }, 500);
 }
 
 // Apply content background color
