@@ -1,84 +1,27 @@
 // Font configurations with library information
 const fonts = [
+    // Google Fonts - Variable fonts
     {
-        family: 'System Default',
-        library: 'local',
-        variants: [{ name: 'Regular', value: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif', isVariable: false }]
-    },
-    // Local fonts
-    {
-        family: 'Newsreader Variable',
-        library: 'local',
+        family: 'Inter',
+        library: 'google',
         variants: [
-            { name: 'Variable (200-800)', value: 'Newsreader', isVariable: true, minWeight: 200, maxWeight: 800 }
+            { name: 'Variable (100-900)', value: "'Inter', sans-serif", isVariable: true, minWeight: 100, maxWeight: 900 }
         ]
     },
     {
-        family: 'Newsreader 9pt',
-        library: 'local',
+        family: 'Newsreader',
+        library: 'google',
         variants: [
-            { name: 'ExtraLight', value: 'Newsreader 9pt ExtraLight' },
-            { name: 'Light', value: 'Newsreader 9pt Light' },
-            { name: 'Regular', value: 'Newsreader 9pt Regular' },
-            { name: 'Medium', value: 'Newsreader 9pt Medium' },
-            { name: 'SemiBold', value: 'Newsreader 9pt SemiBold' },
-            { name: 'Bold', value: 'Newsreader 9pt Bold' }
+            { name: 'Variable (200-800)', value: "'Newsreader', serif", isVariable: true, minWeight: 200, maxWeight: 800 }
         ]
-    },
-    {
-        family: 'Newsreader 24pt',
-        library: 'local',
-        variants: [{ name: 'Regular', value: 'Newsreader 24pt Regular' }]
-    },
-    {
-        family: 'Newsreader 36pt',
-        library: 'local',
-        variants: [{ name: 'Regular', value: 'Newsreader 36pt Regular' }]
-    },
-    {
-        family: 'Newsreader 60pt',
-        library: 'local',
-        variants: [{ name: 'Regular', value: 'Newsreader 60pt Regular' }]
     },
     {
         family: 'Instrument Serif',
-        library: 'local',
+        library: 'google',
         variants: [
-            { name: 'Regular', value: 'Instrument Serif Regular' },
-            { name: 'Italic', value: 'Instrument Serif Italic' }
+            { name: 'Regular (400)', value: "'Instrument Serif', serif", weight: 400 },
+            { name: 'Italic (400)', value: "'Instrument Serif', serif", weight: 400, style: 'italic' }
         ]
-    },
-    {
-        family: 'Inter Variable',
-        library: 'local',
-        variants: [
-            { name: 'Variable (100-900)', value: 'Inter', isVariable: true, minWeight: 100, maxWeight: 900 }
-        ]
-    },
-    {
-        family: 'Inter 18pt',
-        library: 'local',
-        variants: [
-            { name: 'Thin', value: 'Inter 18pt Thin' },
-            { name: 'ExtraLight', value: 'Inter 18pt ExtraLight' },
-            { name: 'Light', value: 'Inter 18pt Light' },
-            { name: 'Regular', value: 'Inter 18pt Regular' },
-            { name: 'Medium', value: 'Inter 18pt Medium' },
-            { name: 'SemiBold', value: 'Inter 18pt SemiBold' },
-            { name: 'Bold', value: 'Inter 18pt Bold' },
-            { name: 'ExtraBold', value: 'Inter 18pt ExtraBold' },
-            { name: 'Black', value: 'Inter 18pt Black' }
-        ]
-    },
-    {
-        family: 'Inter 24pt',
-        library: 'local',
-        variants: [{ name: 'Regular', value: 'Inter 24pt Regular' }]
-    },
-    {
-        family: 'Inter 28pt',
-        library: 'local',
-        variants: [{ name: 'Regular', value: 'Inter 28pt Regular' }]
     },
     // Google Fonts - Sans Serif
     {
@@ -463,7 +406,7 @@ async function loadFontLibraryFonts() {
 
         // Update font selector if library is selected
         if (selectedLibrary === 'all' || selectedLibrary === 'fontlibrary') {
-            updateFontSelector();
+            initializeFonts();
         }
 
     } catch (error) {
@@ -710,19 +653,36 @@ let currentMarkdown = contentPresets.article;
 function initializeFonts() {
     fontSelector.innerHTML = '';
     const filteredFonts = getFilteredFonts();
+
     filteredFonts.forEach((font, index) => {
         const option = document.createElement('option');
         option.value = index;
         option.textContent = font.family;
-        option.dataset.originalIndex = fonts.indexOf(font) >= 0 ? fonts.indexOf(font) :
-                                        (fonts.length + fontLibraryFonts.indexOf(font));
+
+        // Find the original index in the combined arrays
+        const fontsIndex = fonts.indexOf(font);
+        if (fontsIndex >= 0) {
+            option.dataset.originalIndex = fontsIndex;
+        } else {
+            const fontLibraryIndex = fontLibraryFonts.indexOf(font);
+            option.dataset.originalIndex = fonts.length + fontLibraryIndex;
+        }
+
         fontSelector.appendChild(option);
     });
 
     // If current font is not in filtered list, reset to first available
-    const currentFont = fonts[elementSettings[currentElement].fontIndex] ||
-                       fontLibraryFonts[elementSettings[currentElement].fontIndex - fonts.length];
-    if (currentFont && filteredFonts.indexOf(currentFont) === -1) {
+    const currentFontIndex = elementSettings[currentElement].fontIndex;
+    let currentFont;
+
+    if (currentFontIndex < fonts.length) {
+        currentFont = fonts[currentFontIndex];
+    } else {
+        currentFont = fontLibraryFonts[currentFontIndex - fonts.length];
+    }
+
+    const filteredIndex = filteredFonts.indexOf(currentFont);
+    if (currentFont && filteredIndex === -1) {
         // Current font not in filtered list, select first font
         if (filteredFonts.length > 0) {
             fontSelector.value = 0;
