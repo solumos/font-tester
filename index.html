@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Tester</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Lora:ital,wght@0,400..700;1,400..700&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <!-- Marked.js for Markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Font Tester</h1>
+        </header>
+
+        <div class="controls-wrapper">
+            <!-- Element Selector -->
+            <div class="element-selector-wrapper">
+                <label for="elementSelector">Configure:</label>
+                <select id="elementSelector">
+                    <option value="h1">Heading 1 (H1)</option>
+                    <option value="h2">Heading 2 (H2)</option>
+                    <option value="h3">Heading 3 (H3)</option>
+                    <option value="h4">Heading 4 (H4)</option>
+                    <option value="p">Paragraph</option>
+                    <option value="blockquote">Blockquote</option>
+                    <option value="li">List Items</option>
+                    <option value="strong">Bold</option>
+                    <option value="em">Italic</option>
+                    <option value="code">Code</option>
+                </select>
+                <div class="mode-controls">
+                    <button id="darkModeToggle" class="btn-secondary">Dark Mode: Off</button>
+                </div>
+            </div>
+
+            <!-- Font Settings -->
+            <div class="control-section">
+                <h3 id="currentElementLabel">Heading 1 (H1)</h3>
+                <div class="control-row">
+                    <select id="fontSelector" class="font-selector">
+                        <option value="">Loading fonts...</option>
+                    </select>
+                    <select id="fontVariant" class="variant-selector">
+                        <option value="">Select variant</option>
+                    </select>
+                </div>
+                <div class="control-row sliders">
+                    <div class="slider-group">
+                        <label>Size: <span id="fontSizeValue">48px</span></label>
+                        <input type="range" id="fontSize" min="8" max="120" value="48">
+                    </div>
+                    <div class="slider-group">
+                        <label>Weight: <span id="fontWeightValue">700</span></label>
+                        <input type="range" id="fontWeight" min="100" max="900" value="700" disabled>
+                    </div>
+                    <div class="slider-group">
+                        <label>Line Height: <span id="lineHeightValue">1.2</span></label>
+                        <input type="range" id="lineHeight" min="0.8" max="3" value="1.2" step="0.1">
+                    </div>
+                    <div class="slider-group">
+                        <label>Letter Spacing: <span id="letterSpacingValue">0px</span></label>
+                        <input type="range" id="letterSpacing" min="-5" max="10" value="0" step="0.25">
+                    </div>
+                    <div class="slider-group color-group">
+                        <label>Light Color: <span id="lightColorValue">#333333</span></label>
+                        <input type="color" id="lightColor" value="#333333">
+                        <button id="resetLightColor" class="btn-secondary">Reset</button>
+                    </div>
+                    <div class="slider-group color-group" id="darkColorGroup">
+                        <label>Dark Color: <span id="darkColorValue">#e0e0e0</span></label>
+                        <input type="color" id="darkColor" value="#e0e0e0">
+                        <button id="resetDarkColor" class="btn-secondary">Reset</button>
+                    </div>
+                    <div class="slider-group color-group">
+                        <label>Light BG: <span id="lightBgColorValue">transparent</span></label>
+                        <input type="color" id="lightBgColor" value="#ffffff">
+                        <button id="resetLightBgColor" class="btn-secondary">Reset</button>
+                    </div>
+                    <div class="slider-group color-group">
+                        <label>Dark BG: <span id="darkBgColorValue">transparent</span></label>
+                        <input type="color" id="darkBgColor" value="#1a1a1a">
+                        <button id="resetDarkBgColor" class="btn-secondary">Reset</button>
+                    </div>
+                </div>
+                <div class="control-row">
+                    <button id="resetElement" class="btn-secondary">Reset This Element</button>
+                    <button id="resetAll" class="btn-secondary">Reset All</button>
+                </div>
+            </div>
+
+            <!-- Preset Selector -->
+            <div class="control-section preset-section">
+                <h3>Content</h3>
+                <select id="contentPreset">
+                    <option value="article">News Article</option>
+                    <option value="blog">Blog Post</option>
+                    <option value="minimal">Minimal</option>
+                    <option value="custom">Custom (Markdown)</option>
+                </select>
+                <div class="content-bg-settings">
+                    <div class="slider-group color-group">
+                        <label>Light BG: <span id="contentLightBgValue">#ffffff</span></label>
+                        <input type="color" id="contentLightBg" value="#ffffff">
+                        <button id="resetContentLightBg" class="btn-secondary">Reset</button>
+                    </div>
+                    <div class="slider-group color-group">
+                        <label>Dark BG: <span id="contentDarkBgValue">#1a1a1a</span></label>
+                        <input type="color" id="contentDarkBg" value="#1a1a1a">
+                        <button id="resetContentDarkBg" class="btn-secondary">Reset</button>
+                    </div>
+                </div>
+                <div class="preset-actions">
+                    <button id="editContent" class="btn-secondary">Edit</button>
+                    <button id="fullscreenToggle" class="btn-secondary">Fullscreen</button>
+                </div>
+                <div class="preset-actions">
+                    <button id="copySettings" class="btn-secondary">Copy Settings</button>
+                    <button id="exportSettings" class="btn-secondary">Export JSON</button>
+                </div>
+            </div>
+
+            <!-- Summary Card -->
+            <div class="control-section summary-section">
+                <h3>Summary</h3>
+                <div id="fontSummary" class="font-summary">
+                    <!-- Summary will be populated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Editor (hidden by default) -->
+            <div id="editorContainer" class="editor-container" style="display: none;">
+                <div class="editor-header">
+                    <h3>Markdown Editor</h3>
+                    <button id="previewToggle">Hide Editor</button>
+                </div>
+                <textarea id="markdownEditor" placeholder="# Write your markdown here
+
+## Headers work great
+Regular **bold** and *italic* text.
+
+### Lists too
+- Item one
+- Item two
+- Item three
+
+> Blockquotes for emphasis
+
+Paragraphs are separated by blank lines."></textarea>
+            </div>
+
+            <!-- Preview -->
+            <div id="previewContainer" class="preview-container">
+                <div id="preview" class="preview-content">
+                    <!-- Content will be rendered here -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Fullscreen Overlay -->
+    <div id="fullscreenOverlay" class="fullscreen-overlay" style="display: none;">
+        <button id="exitFullscreen" class="exit-fullscreen">×</button>
+        <div id="fullscreenContent" class="fullscreen-content">
+            <!-- Content will be cloned here -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
