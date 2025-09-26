@@ -234,7 +234,8 @@ const elementLabels = {
     li: 'List Items',
     strong: 'Bold',
     em: 'Italic',
-    code: 'Code'
+    code: 'Code (Inline)',
+    pre: 'Code Block'
 };
 
 // Default settings for each element (dark colors initialized with suggested values)
@@ -248,7 +249,8 @@ const defaultSettings = {
     li: { fontIndex: 0, variantIndex: 0, fontSize: 16, fontWeight: 400, lineHeight: 1.6, letterSpacing: 0, lightColor: '#333333', darkColor: '#cccccc', lightBgColor: 'transparent', darkBgColor: 'transparent' },
     strong: { fontIndex: 0, variantIndex: 0, fontSize: 16, fontWeight: 700, lineHeight: 1.6, letterSpacing: 0, lightColor: '#333333', darkColor: '#e0e0e0', lightBgColor: 'transparent', darkBgColor: 'transparent' },
     em: { fontIndex: 0, variantIndex: 0, fontSize: 16, fontWeight: 400, lineHeight: 1.6, letterSpacing: 0, lightColor: '#333333', darkColor: '#cccccc', lightBgColor: 'transparent', darkBgColor: 'transparent' },
-    code: { fontIndex: 0, variantIndex: 0, fontSize: 14, fontWeight: 400, lineHeight: 1.6, letterSpacing: 0, lightColor: '#d63384', darkColor: '#ff79c6', lightBgColor: '#f5f5f5', darkBgColor: '#3a3a3a' }
+    code: { fontIndex: 0, variantIndex: 0, fontSize: 14, fontWeight: 400, lineHeight: 1.6, letterSpacing: 0, lightColor: '#d63384', darkColor: '#ff79c6', lightBgColor: '#f5f5f5', darkBgColor: '#3a3a3a' },
+    pre: { fontIndex: 0, variantIndex: 0, fontSize: 14, fontWeight: 400, lineHeight: 1.5, letterSpacing: 0, lightColor: '#333333', darkColor: '#e0e0e0', lightBgColor: '#f8f8f8', darkBgColor: '#2a2a2a' }
 };
 
 // Suggested dark colors when enabling dark mode
@@ -262,7 +264,8 @@ const suggestedDarkColors = {
     li: '#cccccc',
     strong: '#e0e0e0',
     em: '#cccccc',
-    code: '#ff79c6'
+    code: '#ff79c6',
+    pre: '#e0e0e0'
 };
 
 // Current settings (initialized from defaults)
@@ -625,6 +628,11 @@ function applyElementStyles(tag) {
         elements = preview.querySelectorAll(`p ${tag}, li ${tag}, blockquote ${tag}, h1 ${tag}, h2 ${tag}, h3 ${tag}, h4 ${tag}`);
     }
 
+    // For pre elements, also style the code inside
+    if (tag === 'pre') {
+        elements = preview.querySelectorAll('pre');
+    }
+
     elements.forEach(element => {
         element.style.fontFamily = variant.value;
 
@@ -666,6 +674,19 @@ function applyElementStyles(tag) {
                 element.style.borderRadius = '4px';
                 element.style.borderLeft = '4px solid ' + (pageDarkMode ? '#555' : '#ddd');
                 element.style.margin = '15px 0';
+            } else if (tag === 'pre') {
+                element.style.padding = '15px';
+                element.style.borderRadius = '4px';
+                element.style.margin = '15px 0';
+                element.style.overflow = 'auto';
+                // Also style the code inside pre
+                const codeEl = element.querySelector('code');
+                if (codeEl) {
+                    codeEl.style.fontFamily = variant.value;
+                    codeEl.style.fontSize = settings.fontSize + 'px';
+                    codeEl.style.background = 'transparent';
+                    codeEl.style.padding = '0';
+                }
             } else if (tag === 'code' || tag === 'strong' || tag === 'em') {
                 element.style.padding = '2px 4px';
                 element.style.borderRadius = '3px';
@@ -679,6 +700,18 @@ function applyElementStyles(tag) {
                 element.style.padding = '15px 20px';
                 element.style.borderLeft = '4px solid ' + (pageDarkMode ? '#555' : '#ddd');
                 element.style.margin = '15px 0';
+            } else if (tag === 'pre') {
+                element.style.padding = '15px';
+                element.style.margin = '15px 0';
+                element.style.overflow = 'auto';
+                // Also style the code inside pre
+                const codeEl = element.querySelector('code');
+                if (codeEl) {
+                    codeEl.style.fontFamily = variant.value;
+                    codeEl.style.fontSize = settings.fontSize + 'px';
+                    codeEl.style.background = 'transparent';
+                    codeEl.style.padding = '0';
+                }
             } else {
                 element.style.padding = '';
                 element.style.borderRadius = '';
@@ -983,6 +1016,11 @@ function applyStylesToElement(container) {
             elements = container.querySelectorAll(`p ${tag}, li ${tag}, blockquote ${tag}, h1 ${tag}, h2 ${tag}, h3 ${tag}, h4 ${tag}`);
         }
 
+        // For pre elements
+        if (tag === 'pre') {
+            elements = container.querySelectorAll('pre');
+        }
+
         elements.forEach(element => {
             element.style.fontFamily = variant.value;
 
@@ -1021,6 +1059,19 @@ function applyStylesToElement(container) {
                     element.style.borderRadius = '4px';
                     element.style.borderLeft = '4px solid ' + (pageDarkMode ? '#555' : '#ddd');
                     element.style.margin = '15px 0';
+                } else if (tag === 'pre') {
+                    element.style.padding = '15px';
+                    element.style.borderRadius = '4px';
+                    element.style.margin = '15px 0';
+                    element.style.overflow = 'auto';
+                    // Also style the code inside pre
+                    const codeEl = element.querySelector('code');
+                    if (codeEl) {
+                        codeEl.style.fontFamily = variant.value;
+                        codeEl.style.fontSize = settings.fontSize + 'px';
+                        codeEl.style.background = 'transparent';
+                        codeEl.style.padding = '0';
+                    }
                 } else if (tag === 'code' || tag === 'strong' || tag === 'em') {
                     element.style.padding = '2px 4px';
                     element.style.borderRadius = '3px';
@@ -1034,6 +1085,18 @@ function applyStylesToElement(container) {
                     element.style.padding = '15px 20px';
                     element.style.borderLeft = '4px solid ' + (pageDarkMode ? '#555' : '#ddd');
                     element.style.margin = '15px 0';
+                } else if (tag === 'pre') {
+                    element.style.padding = '15px';
+                    element.style.margin = '15px 0';
+                    element.style.overflow = 'auto';
+                    // Also style the code inside pre
+                    const codeEl = element.querySelector('code');
+                    if (codeEl) {
+                        codeEl.style.fontFamily = variant.value;
+                        codeEl.style.fontSize = settings.fontSize + 'px';
+                        codeEl.style.background = 'transparent';
+                        codeEl.style.padding = '0';
+                    }
                 } else {
                     element.style.padding = '';
                     element.style.borderRadius = '';
