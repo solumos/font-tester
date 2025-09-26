@@ -431,6 +431,7 @@ const elementLabels = {
     h2: 'Heading 2 (H2)',
     h3: 'Heading 3 (H3)',
     h4: 'Heading 4 (H4)',
+    h5: 'Heading 5 (H5)',
     p: 'Paragraph',
     blockquote: 'Blockquote',
     li: 'List Items',
@@ -446,6 +447,7 @@ const defaultSettings = {
     h2: { fontIndex: 0, variantIndex: 0, fontSize: 36, fontWeight: 600, lineHeight: 1.3, letterSpacing: 0, lightColor: '#333333', darkColor: '#e0e0e0', lightBgColor: 'transparent', darkBgColor: 'transparent' },
     h3: { fontIndex: 0, variantIndex: 0, fontSize: 28, fontWeight: 600, lineHeight: 1.4, letterSpacing: 0, lightColor: '#333333', darkColor: '#e0e0e0', lightBgColor: 'transparent', darkBgColor: 'transparent' },
     h4: { fontIndex: 0, variantIndex: 0, fontSize: 24, fontWeight: 600, lineHeight: 1.4, letterSpacing: 0, lightColor: '#333333', darkColor: '#e0e0e0', lightBgColor: 'transparent', darkBgColor: 'transparent' },
+    h5: { fontIndex: 0, variantIndex: 0, fontSize: 20, fontWeight: 500, lineHeight: 1.4, letterSpacing: 0, lightColor: '#333333', darkColor: '#e0e0e0', lightBgColor: 'transparent', darkBgColor: 'transparent' },
     p: { fontIndex: 0, variantIndex: 0, fontSize: 16, fontWeight: 400, lineHeight: 1.6, letterSpacing: 0, lightColor: '#333333', darkColor: '#cccccc', lightBgColor: 'transparent', darkBgColor: 'transparent' },
     blockquote: { fontIndex: 0, variantIndex: 0, fontSize: 18, fontWeight: 400, lineHeight: 1.6, letterSpacing: 0, lightColor: '#666666', darkColor: '#999999', lightBgColor: '#f9f9f9', darkBgColor: '#2a2a2a' },
     li: { fontIndex: 0, variantIndex: 0, fontSize: 16, fontWeight: 400, lineHeight: 1.6, letterSpacing: 0, lightColor: '#333333', darkColor: '#cccccc', lightBgColor: 'transparent', darkBgColor: 'transparent' },
@@ -855,7 +857,7 @@ function renderMarkdown() {
 // Attach click listeners to preview elements
 function attachClickListeners() {
     // Define selectable elements
-    const selectableElements = 'h1, h2, h3, h4, p, blockquote, li, strong, em, code, pre';
+    const selectableElements = 'h1, h2, h3, h4, h5, p, blockquote, li, strong, em, code, pre';
     const elements = preview.querySelectorAll(selectableElements);
 
     elements.forEach(el => {
@@ -877,7 +879,7 @@ function attachClickListeners() {
             // Handle nested elements - if clicking on inline elements within a paragraph
             if (tagName === 'strong' || tagName === 'em' || tagName === 'code') {
                 // Check if it's inside a larger block element
-                const parent = el.closest('p, li, blockquote, h1, h2, h3, h4');
+                const parent = el.closest('p, li, blockquote, h1, h2, h3, h4, h5');
                 if (parent && e.altKey) {
                     // Alt+click selects the parent instead
                     tagName = parent.tagName.toLowerCase();
@@ -885,7 +887,7 @@ function attachClickListeners() {
             }
 
             // Check if this element type is in our element selector
-            const validElements = ['h1', 'h2', 'h3', 'h4', 'p', 'blockquote', 'li', 'strong', 'em', 'code', 'pre'];
+            const validElements = ['h1', 'h2', 'h3', 'h4', 'h5', 'p', 'blockquote', 'li', 'strong', 'em', 'code', 'pre'];
             if (!validElements.includes(tagName)) return;
 
             // Save current settings before switching
