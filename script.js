@@ -194,6 +194,88 @@ const fonts = [
             { name: 'SemiBold (600)', value: "'Cormorant Garamond', serif", weight: 600 },
             { name: 'Bold (700)', value: "'Cormorant Garamond', serif", weight: 700 }
         ]
+    },
+    // Hyperlegible fonts for accessibility
+    {
+        family: 'Lexend',
+        library: 'google',
+        variants: [
+            { name: 'Variable (100-900)', value: "'Lexend', sans-serif", isVariable: true, minWeight: 100, maxWeight: 900 }
+        ]
+    },
+    {
+        family: 'Atkinson Hyperlegible',
+        library: 'google',
+        variants: [
+            { name: 'Regular (400)', value: "'Atkinson Hyperlegible', sans-serif", weight: 400 },
+            { name: 'Bold (700)', value: "'Atkinson Hyperlegible', sans-serif", weight: 700 }
+        ]
+    },
+    {
+        family: 'Lexend Deca',
+        library: 'google',
+        variants: [
+            { name: 'Variable (100-900)', value: "'Lexend Deca', sans-serif", isVariable: true, minWeight: 100, maxWeight: 900 }
+        ]
+    },
+    {
+        family: 'Lexend Exa',
+        library: 'google',
+        variants: [
+            { name: 'Variable (100-900)', value: "'Lexend Exa', sans-serif", isVariable: true, minWeight: 100, maxWeight: 900 }
+        ]
+    },
+    {
+        family: 'Lexend Giga',
+        library: 'google',
+        variants: [
+            { name: 'Variable (100-900)', value: "'Lexend Giga', sans-serif", isVariable: true, minWeight: 100, maxWeight: 900 }
+        ]
+    },
+    {
+        family: 'Lexend Mega',
+        library: 'google',
+        variants: [
+            { name: 'Variable (100-900)', value: "'Lexend Mega', sans-serif", isVariable: true, minWeight: 100, maxWeight: 900 }
+        ]
+    },
+    {
+        family: 'Lexend Peta',
+        library: 'google',
+        variants: [
+            { name: 'Variable (100-900)', value: "'Lexend Peta', sans-serif", isVariable: true, minWeight: 100, maxWeight: 900 }
+        ]
+    },
+    {
+        family: 'Lexend Tera',
+        library: 'google',
+        variants: [
+            { name: 'Variable (100-900)', value: "'Lexend Tera', sans-serif", isVariable: true, minWeight: 100, maxWeight: 900 }
+        ]
+    },
+    {
+        family: 'Lexend Zetta',
+        library: 'google',
+        variants: [
+            { name: 'Variable (100-900)', value: "'Lexend Zetta', sans-serif", isVariable: true, minWeight: 100, maxWeight: 900 }
+        ]
+    },
+    {
+        family: 'Comic Neue',
+        library: 'google',
+        variants: [
+            { name: 'Light (300)', value: "'Comic Neue', cursive", weight: 300 },
+            { name: 'Regular (400)', value: "'Comic Neue', cursive", weight: 400 },
+            { name: 'Bold (700)', value: "'Comic Neue', cursive", weight: 700 }
+        ]
+    },
+    {
+        family: 'Andika',
+        library: 'google',
+        variants: [
+            { name: 'Regular (400)', value: "'Andika', sans-serif", weight: 400 },
+            { name: 'Bold (700)', value: "'Andika', sans-serif", weight: 700 }
+        ]
     }
 ];
 
