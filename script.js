@@ -282,8 +282,186 @@ const fonts = [
 // Font Library fonts (to be loaded dynamically)
 let fontLibraryFonts = [];
 
+// Local fonts (detected from system)
+let localFonts = [];
+
 // Currently selected library
 let selectedLibrary = 'all';
+
+// Detect locally installed fonts
+async function detectLocalFonts(userActivated = false) {
+    try {
+        // Check if the Local Font Access API is available and user activated
+        if ('queryLocalFonts' in window && userActivated) {
+            // Use the Local Font Access API (requires user permission)
+            const availableFonts = await window.queryLocalFonts();
+
+            // Group fonts by family
+            const fontFamilies = new Map();
+
+            for (const font of availableFonts) {
+                const family = font.family;
+                if (!fontFamilies.has(family)) {
+                    fontFamilies.set(family, []);
+                }
+                fontFamilies.get(family).push(font);
+            }
+
+            // Convert to our font format
+            localFonts = Array.from(fontFamilies.entries()).map(([family, fonts]) => {
+                const variants = fonts.map(font => {
+                    const style = font.style || 'normal';
+                    const weight = parseInt(font.weight) || 400;
+                    const name = `${style === 'italic' ? 'Italic ' : ''}(${weight})`;
+
+                    return {
+                        name: name,
+                        value: `'${family}', sans-serif`,
+                        weight: weight,
+                        style: style
+                    };
+                });
+
+                // Sort variants by weight
+                variants.sort((a, b) => a.weight - b.weight);
+
+                return {
+                    family: family,
+                    library: 'local',
+                    variants: variants.length > 0 ? variants : [
+                        { name: 'Regular (400)', value: `'${family}', sans-serif`, weight: 400 }
+                    ]
+                };
+            });
+
+            // Sort fonts alphabetically
+            localFonts.sort((a, b) => a.family.localeCompare(b.family));
+
+            // Hide the button since we loaded the fonts
+            if (loadLocalFontsBtn) {
+                loadLocalFontsBtn.style.display = 'none';
+            }
+
+        } else if (localFonts.length === 0) {
+            // Fallback: Use a predefined list of commonly installed fonts only if not already loaded
+            localFonts = [
+                {
+                    family: 'Arial',
+                    library: 'local',
+                    variants: [
+                        { name: 'Regular (400)', value: "'Arial', sans-serif", weight: 400 },
+                        { name: 'Bold (700)', value: "'Arial', sans-serif", weight: 700 }
+                    ]
+                },
+                {
+                    family: 'Helvetica',
+                    library: 'local',
+                    variants: [
+                        { name: 'Regular (400)', value: "'Helvetica', sans-serif", weight: 400 },
+                        { name: 'Bold (700)', value: "'Helvetica', sans-serif", weight: 700 }
+                    ]
+                },
+                {
+                    family: 'Times New Roman',
+                    library: 'local',
+                    variants: [
+                        { name: 'Regular (400)', value: "'Times New Roman', serif", weight: 400 },
+                        { name: 'Bold (700)', value: "'Times New Roman', serif", weight: 700 }
+                    ]
+                },
+                {
+                    family: 'Georgia',
+                    library: 'local',
+                    variants: [
+                        { name: 'Regular (400)', value: "'Georgia', serif", weight: 400 },
+                        { name: 'Bold (700)', value: "'Georgia', serif", weight: 700 }
+                    ]
+                },
+                {
+                    family: 'Verdana',
+                    library: 'local',
+                    variants: [
+                        { name: 'Regular (400)', value: "'Verdana', sans-serif", weight: 400 },
+                        { name: 'Bold (700)', value: "'Verdana', sans-serif", weight: 700 }
+                    ]
+                },
+                {
+                    family: 'Tahoma',
+                    library: 'local',
+                    variants: [
+                        { name: 'Regular (400)', value: "'Tahoma', sans-serif", weight: 400 },
+                        { name: 'Bold (700)', value: "'Tahoma', sans-serif", weight: 700 }
+                    ]
+                },
+                {
+                    family: 'Trebuchet MS',
+                    library: 'local',
+                    variants: [
+                        { name: 'Regular (400)', value: "'Trebuchet MS', sans-serif", weight: 400 },
+                        { name: 'Bold (700)', value: "'Trebuchet MS', sans-serif", weight: 700 }
+                    ]
+                },
+                {
+                    family: 'Courier New',
+                    library: 'local',
+                    variants: [
+                        { name: 'Regular (400)', value: "'Courier New', monospace", weight: 400 },
+                        { name: 'Bold (700)', value: "'Courier New', monospace", weight: 700 }
+                    ]
+                },
+                {
+                    family: 'Monaco',
+                    library: 'local',
+                    variants: [
+                        { name: 'Regular (400)', value: "'Monaco', monospace", weight: 400 }
+                    ]
+                },
+                {
+                    family: 'Menlo',
+                    library: 'local',
+                    variants: [
+                        { name: 'Regular (400)', value: "'Menlo', monospace", weight: 400 }
+                    ]
+                },
+                {
+                    family: 'SF Pro Display',
+                    library: 'local',
+                    variants: [
+                        { name: 'Regular (400)', value: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif", weight: 400 },
+                        { name: 'Medium (500)', value: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif", weight: 500 },
+                        { name: 'Bold (700)', value: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif", weight: 700 }
+                    ]
+                },
+                {
+                    family: 'System UI',
+                    library: 'local',
+                    variants: [
+                        { name: 'Regular (400)', value: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", weight: 400 },
+                        { name: 'Bold (700)', value: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", weight: 700 }
+                    ]
+                }
+            ];
+        }
+
+        // Update font selector if local library is selected
+        if (selectedLibrary === 'all' || selectedLibrary === 'local') {
+            initializeFonts();
+        }
+
+    } catch (error) {
+        console.error('Error detecting local fonts:', error);
+        // Use fallback fonts on error
+        localFonts = [
+            {
+                family: 'System Default',
+                library: 'local',
+                variants: [
+                    { name: 'Regular (400)', value: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif", weight: 400 }
+                ]
+            }
+        ];
+    }
+}
 
 // Load fonts from Font Library.org
 async function loadFontLibraryFonts() {
@@ -499,9 +677,11 @@ async function loadFontLibraryFonts() {
 // Get filtered fonts based on selected library
 function getFilteredFonts() {
     if (selectedLibrary === 'all') {
-        return [...fonts, ...fontLibraryFonts];
+        return [...fonts, ...fontLibraryFonts, ...localFonts];
     } else if (selectedLibrary === 'fontlibrary') {
         return fontLibraryFonts;
+    } else if (selectedLibrary === 'local') {
+        return localFonts;
     } else {
         return fonts.filter(font => font.library === selectedLibrary);
     }
@@ -736,6 +916,7 @@ const fullscreenToggle = document.getElementById('fullscreenToggle');
 const fullscreenOverlay = document.getElementById('fullscreenOverlay');
 const fullscreenContent = document.getElementById('fullscreenContent');
 const exitFullscreen = document.getElementById('exitFullscreen');
+const loadLocalFontsBtn = document.getElementById('loadLocalFonts');
 
 let isEditorVisible = false;
 let currentMarkdown = contentPresets.blog;
@@ -756,7 +937,12 @@ function initializeFonts() {
             option.dataset.originalIndex = fontsIndex;
         } else {
             const fontLibraryIndex = fontLibraryFonts.indexOf(font);
-            option.dataset.originalIndex = fonts.length + fontLibraryIndex;
+            if (fontLibraryIndex >= 0) {
+                option.dataset.originalIndex = fonts.length + fontLibraryIndex;
+            } else {
+                const localIndex = localFonts.indexOf(font);
+                option.dataset.originalIndex = fonts.length + fontLibraryFonts.length + localIndex;
+            }
         }
 
         fontSelector.appendChild(option);
@@ -768,8 +954,10 @@ function initializeFonts() {
 
     if (currentFontIndex < fonts.length) {
         currentFont = fonts[currentFontIndex];
-    } else {
+    } else if (currentFontIndex < fonts.length + fontLibraryFonts.length) {
         currentFont = fontLibraryFonts[currentFontIndex - fonts.length];
+    } else {
+        currentFont = localFonts[currentFontIndex - fonts.length - fontLibraryFonts.length];
     }
 
     const filteredIndex = filteredFonts.indexOf(currentFont);
@@ -790,9 +978,14 @@ function loadElementSettings() {
     currentElementLabel.textContent = elementLabels[currentElement];
 
     // Find the font in the filtered list
-    const font = settings.fontIndex < fonts.length ?
-                 fonts[settings.fontIndex] :
-                 fontLibraryFonts[settings.fontIndex - fonts.length];
+    let font;
+    if (settings.fontIndex < fonts.length) {
+        font = fonts[settings.fontIndex];
+    } else if (settings.fontIndex < fonts.length + fontLibraryFonts.length) {
+        font = fontLibraryFonts[settings.fontIndex - fonts.length];
+    } else {
+        font = localFonts[settings.fontIndex - fonts.length - fontLibraryFonts.length];
+    }
     const filteredFonts = getFilteredFonts();
     const filteredIndex = filteredFonts.indexOf(font);
 
@@ -849,7 +1042,14 @@ function loadElementSettings() {
     fontVariant.value = settings.variantIndex;
 
     // Check if weight slider should be enabled
-    const selectedFont = fonts[settings.fontIndex];
+    let selectedFont;
+    if (settings.fontIndex < fonts.length) {
+        selectedFont = fonts[settings.fontIndex];
+    } else if (settings.fontIndex < fonts.length + fontLibraryFonts.length) {
+        selectedFont = fontLibraryFonts[settings.fontIndex - fonts.length];
+    } else {
+        selectedFont = localFonts[settings.fontIndex - fonts.length - fontLibraryFonts.length];
+    }
     const selectedVariant = selectedFont.variants[settings.variantIndex];
     if (selectedVariant.isVariable) {
         fontWeight.disabled = false;
@@ -891,6 +1091,8 @@ function getOriginalFontIndex(font) {
     if (idx >= 0) return idx;
     const flIdx = fontLibraryFonts.indexOf(font);
     if (flIdx >= 0) return fonts.length + flIdx;
+    const localIdx = localFonts.indexOf(font);
+    if (localIdx >= 0) return fonts.length + fontLibraryFonts.length + localIdx;
     return 0;
 }
 
@@ -1061,9 +1263,14 @@ function applyAllStyles() {
 // Apply styles to specific element type
 function applyElementStyles(tag) {
     const settings = elementSettings[tag];
-    const font = settings.fontIndex < fonts.length ?
-                 fonts[settings.fontIndex] :
-                 fontLibraryFonts[settings.fontIndex - fonts.length];
+    let font;
+    if (settings.fontIndex < fonts.length) {
+        font = fonts[settings.fontIndex];
+    } else if (settings.fontIndex < fonts.length + fontLibraryFonts.length) {
+        font = fontLibraryFonts[settings.fontIndex - fonts.length];
+    } else {
+        font = localFonts[settings.fontIndex - fonts.length - fontLibraryFonts.length];
+    }
     const variant = font.variants[settings.variantIndex];
 
     let elements = preview.querySelectorAll(tag);
@@ -1204,9 +1411,14 @@ function updateFontSummary() {
 
     elementOrder.forEach(tag => {
         const settings = elementSettings[tag];
-        const font = settings.fontIndex < fonts.length ?
-                     fonts[settings.fontIndex] :
-                     fontLibraryFonts[settings.fontIndex - fonts.length];
+        let font;
+        if (settings.fontIndex < fonts.length) {
+            font = fonts[settings.fontIndex];
+        } else if (settings.fontIndex < fonts.length + fontLibraryFonts.length) {
+            font = fontLibraryFonts[settings.fontIndex - fonts.length];
+        } else {
+            font = localFonts[settings.fontIndex - fonts.length - fontLibraryFonts.length];
+        }
         const variant = font.variants[settings.variantIndex];
 
         html += `
@@ -1325,9 +1537,14 @@ function copySettingsAsCSS() {
     css += '/* Light Mode */\n';
     Object.keys(elementSettings).forEach(tag => {
         const settings = elementSettings[tag];
-        const font = settings.fontIndex < fonts.length ?
-                     fonts[settings.fontIndex] :
-                     fontLibraryFonts[settings.fontIndex - fonts.length];
+        let font;
+        if (settings.fontIndex < fonts.length) {
+            font = fonts[settings.fontIndex];
+        } else if (settings.fontIndex < fonts.length + fontLibraryFonts.length) {
+            font = fontLibraryFonts[settings.fontIndex - fonts.length];
+        } else {
+            font = localFonts[settings.fontIndex - fonts.length - fontLibraryFonts.length];
+        }
         const variant = font.variants[settings.variantIndex];
 
         css += `${tag} {\n`;
@@ -1366,9 +1583,14 @@ function exportSettingsAsJSON() {
 
     Object.keys(elementSettings).forEach(tag => {
         const settings = elementSettings[tag];
-        const font = settings.fontIndex < fonts.length ?
-                     fonts[settings.fontIndex] :
-                     fontLibraryFonts[settings.fontIndex - fonts.length];
+        let font;
+        if (settings.fontIndex < fonts.length) {
+            font = fonts[settings.fontIndex];
+        } else if (settings.fontIndex < fonts.length + fontLibraryFonts.length) {
+            font = fontLibraryFonts[settings.fontIndex - fonts.length];
+        } else {
+            font = localFonts[settings.fontIndex - fonts.length - fontLibraryFonts.length];
+        }
         const variant = font.variants[settings.variantIndex];
 
         exportData.settings[tag] = {
@@ -1457,9 +1679,14 @@ function exitFullscreenMode() {
 function applyStylesToElement(container) {
     Object.keys(elementSettings).forEach(tag => {
         const settings = elementSettings[tag];
-        const font = settings.fontIndex < fonts.length ?
-                     fonts[settings.fontIndex] :
-                     fontLibraryFonts[settings.fontIndex - fonts.length];
+        let font;
+        if (settings.fontIndex < fonts.length) {
+            font = fonts[settings.fontIndex];
+        } else if (settings.fontIndex < fonts.length + fontLibraryFonts.length) {
+            font = fontLibraryFonts[settings.fontIndex - fonts.length];
+        } else {
+            font = localFonts[settings.fontIndex - fonts.length - fontLibraryFonts.length];
+        }
         const variant = font.variants[settings.variantIndex];
 
         let elements = container.querySelectorAll(tag);
@@ -1575,6 +1802,19 @@ function applyStylesToElement(container) {
 // Event listeners
 librarySelector.addEventListener('change', () => {
     selectedLibrary = librarySelector.value;
+
+    // Show load button if local fonts selected and API is available but only fallback fonts loaded
+    // Check if we only have fallback fonts by checking if first font is 'Arial' (first fallback)
+    const hasFallbackOnly = localFonts.length > 0 && localFonts[0].family === 'Arial';
+
+    if ((selectedLibrary === 'local' || selectedLibrary === 'all') &&
+        'queryLocalFonts' in window &&
+        hasFallbackOnly) {
+        loadLocalFontsBtn.style.display = 'inline-block';
+    } else {
+        loadLocalFontsBtn.style.display = 'none';
+    }
+
     initializeFonts();
     loadElementSettings();
 });
@@ -1770,6 +2010,18 @@ editContent.addEventListener('click', openEditor);
 fullscreenToggle.addEventListener('click', enterFullscreen);
 exitFullscreen.addEventListener('click', exitFullscreenMode);
 
+// Load local fonts button
+loadLocalFontsBtn.addEventListener('click', async () => {
+    loadLocalFontsBtn.textContent = 'Loading...';
+    loadLocalFontsBtn.disabled = true;
+
+    await detectLocalFonts(true);
+
+    loadLocalFontsBtn.style.display = 'none';
+    loadLocalFontsBtn.disabled = false;
+    loadLocalFontsBtn.textContent = 'Load Local Fonts';
+});
+
 // Live markdown editing
 markdownEditor.addEventListener('input', () => {
     currentMarkdown = markdownEditor.value;
@@ -1784,7 +2036,14 @@ document.addEventListener('DOMContentLoaded', () => {
     renderMarkdown();
     updateFontSummary();
     loadFontLibraryFonts(); // Load Font Library fonts
+    detectLocalFonts(false); // Load fallback local fonts (no user activation)
     applyContentBackground();
+
+    // Check if we should show the load local fonts button
+    if ('queryLocalFonts' in window) {
+        // API is available, but we need user activation
+        // Button will be shown when user selects local fonts from dropdown
+    }
 
     // Set dropdown to reflect default content
     contentPreset.value = 'blog';

@@ -110,8 +110,15 @@ header h1 {
 }
 
 .library-selector {
-    width: 100%;
-    margin-bottom: 10px;
+    flex: 1;
+    min-width: 200px;
+}
+
+#loadLocalFonts {
+    flex: none;
+    white-space: nowrap;
+    padding: 8px 16px;
+    min-width: auto;
 }
 
 .font-selector {
